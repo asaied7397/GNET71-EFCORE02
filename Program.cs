@@ -15,10 +15,9 @@ try
 {
     using var context = new EventHubContext(connectionString);
 
-    // Create the database and schema when the database does not exist.
-    bool databaseCreated = context.Database.EnsureCreated();
+    context.Database.Migrate();
 
-    Console.WriteLine(databaseCreated ? "Database schema created successfully." : "Database already exists.");
+    Console.WriteLine("Database migrations applied successfully.");
 
     // Add sample data only when the organizer is not already present.
     bool sampleExists = context.Organizers
